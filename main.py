@@ -1,6 +1,5 @@
 import flet as ft
 import httpx
-import asyncio
 
 # API Gateway Endpoint
 API_URL = "https://tbpc3gdax9.execute-api.eu-north-1.amazonaws.com/chat"
@@ -11,8 +10,8 @@ def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.DARK
     page.bgcolor = "#0A0A0A"
     page.padding = 0
-    page.window_width = 400
-    page.window_height = 700
+    page.window.width = 400
+    page.window.height = 700
 
     # Colors
     BG_COLOR = "#0A0A0A"
@@ -25,7 +24,7 @@ def main(page: ft.Page):
     chat_list = ft.ListView(
         expand=True,
         spacing=15,
-        padding=ft.padding.all(15),
+        padding=ft.Padding.all(15), # FIX: boro hater Padding
         auto_scroll=True,
     )
 
@@ -40,10 +39,10 @@ def main(page: ft.Page):
             spacing=5,
         ),
         bgcolor=BUBBLE_GRAY,
-        padding=ft.padding.symmetric(horizontal=15, vertical=10),
+        padding=ft.Padding.symmetric(horizontal=15, vertical=10), # FIX: boro hater Padding
         border_radius=15,
         visible=False, # Initially hidden
-        margin=ft.margin.only(left=10, right=50, bottom=10)
+        margin=ft.Margin.only(left=10, right=50, bottom=10) # FIX: boro hater Margin
     )
 
     # Message Bubbles Function
@@ -56,8 +55,8 @@ def main(page: ft.Page):
                 ft.Container(
                     content=ft.Text(text, color=text_color, size=16),
                     bgcolor=bg_color,
-                    padding=ft.padding.symmetric(horizontal=15, vertical=10),
-                    border_radius=ft.border_radius.only(
+                    padding=ft.Padding.symmetric(horizontal=15, vertical=10), # FIX: boro hater Padding
+                    border_radius=ft.BorderRadius.only( # FIX: boro hater BorderRadius
                         top_left=15, top_right=15,
                         bottom_left=15 if is_user else 0,
                         bottom_right=0 if is_user else 15
@@ -96,7 +95,6 @@ def main(page: ft.Page):
                 
                 if response.status_code == 200:
                     data = response.json()
-                    # এখানে API এর রেসপন্স ফরম্যাট অনুযায়ী 'reply' অথবা 'message' কী-টি দিতে হবে
                     bot_reply = data.get("reply", data.get("message", "Response format unknown."))
                 else:
                     bot_reply = f"Error: {response.status_code} - {response.text}"
@@ -140,9 +138,9 @@ def main(page: ft.Page):
             [input_field, send_button],
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
         ),
-        padding=ft.padding.all(10),
+        padding=ft.Padding.all(10), # FIX: boro hater Padding
         bgcolor=BG_COLOR,
-        border=ft.border.only(top=ft.BorderSide(1, "#2A2A2A")),
+        border=ft.Border.only(top=ft.BorderSide(1, "#2A2A2A")), # FIX: boro hater Border
     )
 
     # Header
@@ -160,7 +158,7 @@ def main(page: ft.Page):
                             width=12, height=12,
                             bgcolor=ACCENT_GREEN,
                             border_radius=6,
-                            border=ft.border.all(2, BG_COLOR),
+                            border=ft.Border.all(2, BG_COLOR), # FIX: boro hater Border
                             right=0, bottom=0
                         )
                     ]
@@ -174,9 +172,9 @@ def main(page: ft.Page):
                 )
             ],
         ),
-        padding=ft.padding.symmetric(horizontal=15, vertical=10),
+        padding=ft.Padding.symmetric(horizontal=15, vertical=10), # FIX: boro hater Padding
         bgcolor=BG_COLOR,
-        border=ft.border.only(bottom=ft.BorderSide(1, "#2A2A2A")),
+        border=ft.Border.only(bottom=ft.BorderSide(1, "#2A2A2A")), # FIX: boro hater Border
     )
 
     # Layout Assembly
