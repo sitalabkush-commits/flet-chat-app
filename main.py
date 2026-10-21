@@ -192,4 +192,5 @@ def main(page: ft.Page):
 
     page.add(main_layout)
 
-ft.app(target=main)
+# Flet 1.0 এর জন্য ft.app এর বদলে ft.run ব্যবহার করতে হবে
+ft.run(main)
